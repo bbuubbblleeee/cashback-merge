@@ -3,7 +3,7 @@ package academy.cashbackmerge.config;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import academy.cashbackmerge.config.exception.IllegalConfigException;
+import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.util.Messages;
 import java.nio.file.Path;
 import org.junit.jupiter.api.DisplayName;

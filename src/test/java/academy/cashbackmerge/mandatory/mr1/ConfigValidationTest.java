@@ -3,7 +3,7 @@ package academy.cashbackmerge.mandatory.mr1;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import academy.cashbackmerge.config.exception.IllegalConfigException;
+import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.config.model.CampaignConfig;
 import academy.cashbackmerge.config.validator.ConfigValidator;
 import academy.cashbackmerge.model.Cashback;

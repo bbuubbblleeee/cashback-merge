@@ -1,4 +1,4 @@
-package academy.cashbackmerge.config.exception;
+package academy.cashbackmerge.exception;
 
 public class IllegalConfigException extends RuntimeException {
     public IllegalConfigException(String message) {
