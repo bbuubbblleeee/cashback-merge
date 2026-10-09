@@ -10,9 +10,7 @@ public record Cashback(int cashback) {
         if (cashback <= 0) {
             throw new IllegalCashbackException(Messages.getString("cashback.error.min_value"));
         }
-        if ((cashback & (cashback - 1)) != 0) {
-            throw new IllegalCashbackException(Messages.getString("cashback.error.power_of_two"));
-        }
+        validateIfPowOfTwo();
     }
 
     @JsonCreator
@@ -23,5 +21,11 @@ public record Cashback(int cashback) {
     @Override
     public String toString() {
         return this.cashback + "%";
+    }
+
+    public void validateIfPowOfTwo() {
+        if ((cashback & (cashback - 1)) != 0) {
+            throw new IllegalCashbackException(Messages.getString("cashback.error.power_of_two"));
+        }
     }
 }
