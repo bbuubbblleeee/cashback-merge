@@ -23,7 +23,7 @@ public record Cashback(int cashback) {
         return this.cashback + "%";
     }
 
-    public void validateIfPowOfTwo() {
+    private void validateIfPowOfTwo() {
         if ((cashback & (cashback - 1)) != 0) {
             throw new IllegalCashbackException(Messages.getString("cashback.error.power_of_two"));
         }

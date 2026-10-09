@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 public final class ConfigValidator {
-    private static final int MAX_SCALE = SpawnRule.MAX_SCALE;
-
     private ConfigValidator() {}
 
     public static void validate(CampaignConfig campaignConfig) {
@@ -72,13 +70,13 @@ public final class ConfigValidator {
         assertNotNull(maxRewardAllowedRate, Messages.getString("max_reward_allowed_rate.error.null"));
         assertBigDecimalPositive(maxRewardAllowedRate, Messages.getString("max_reward_allowed_rate.error.min_value"));
         assertBigDecimalScale(
-                maxRewardAllowedRate, MAX_SCALE, Messages.getString("max_reward_allowed_rate.error.max_scale"));
+                maxRewardAllowedRate, SpawnRule.MAX_SCALE, Messages.getString("max_reward_allowed_rate.error.max_scale"));
     }
 
     private static void validateProbability(BigDecimal probability) {
         assertNotNull(probability, Messages.getString("probability.error.null"));
         assertBigDecimalPositive(probability, Messages.getString("probability.error.min_value"));
-        assertBigDecimalScale(probability, MAX_SCALE, Messages.getString("probability.error.max_scale"));
+        assertBigDecimalScale(probability, SpawnRule.MAX_SCALE, Messages.getString("probability.error.max_scale"));
     }
 
     private static void assertGreaterThan(int valueToCheck, int limit, String message) {
