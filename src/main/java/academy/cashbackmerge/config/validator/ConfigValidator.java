@@ -80,7 +80,6 @@ public final class ConfigValidator {
         }
     }
 
-
     private static void validateProbability(BigDecimal probability) {
         if (probability == null) {
             throw new IllegalConfigException(Messages.getString("probability.error.null"));
