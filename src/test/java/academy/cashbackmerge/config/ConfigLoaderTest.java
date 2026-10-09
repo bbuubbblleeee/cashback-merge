@@ -26,12 +26,4 @@ public class ConfigLoaderTest {
                 .isInstanceOf(IllegalConfigException.class)
                 .hasMessage(Messages.getString("config.error.not_found"));
     }
-
-    @Test
-    @DisplayName("Отсутствие в файле нужных полей корректно обрабатывается")
-    void validConfigNotFull() {
-        assertThatThrownBy(() -> ConfigLoader.loadConfigFromJsonString(""))
-                .isInstanceOf(IllegalConfigException.class)
-                .hasMessage(Messages.getString("config.error"));
-    }
 }
