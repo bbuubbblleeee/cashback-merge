@@ -1,8 +1,8 @@
 package academy.cashbackmerge;
 
 import academy.cashbackmerge.config.ConfigLoader;
-import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.config.model.CampaignConfig;
+import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.game.GameHandler;
 import academy.cashbackmerge.game.model.GameSession;
 import java.nio.file.Path;
