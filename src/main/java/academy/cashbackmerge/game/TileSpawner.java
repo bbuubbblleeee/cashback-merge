@@ -5,15 +5,13 @@ import academy.cashbackmerge.game.model.board.Position;
 import academy.cashbackmerge.model.SpawnRule;
 import academy.cashbackmerge.util.Messages;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Random;
 
 public class TileSpawner {
     private final List<SpawnRule> spawnRules;
     private final Random random;
-    private static final int MAX_NUMBER_OF_PERCENT = 100;
-    private static final int SCALE = 4;
+    private static final int PROBABILITY_SCALE_BASE = 10;
 
     public TileSpawner(List<SpawnRule> spawnRules, long seed) {
         if (spawnRules == null) {
@@ -36,9 +34,8 @@ public class TileSpawner {
             throw new IllegalArgumentException(Messages.getString("board.error.full_board"));
         }
         Position position = freeTiles.get(random.nextInt(freeTiles.size()));
-        BigDecimal target = new BigDecimal(random.nextInt(MAX_NUMBER_OF_PERCENT))
-                .setScale(SCALE, RoundingMode.UNNECESSARY)
-                .divide(new BigDecimal("100"), RoundingMode.UNNECESSARY);
+        int randomInt = random.nextInt(Math.powExact(PROBABILITY_SCALE_BASE, SpawnRule.MAX_SCALE));
+        BigDecimal target = BigDecimal.valueOf(randomInt).movePointLeft(SpawnRule.MAX_SCALE);
         BigDecimal probabilitySum = BigDecimal.ZERO;
         for (SpawnRule rule : spawnRules) {
             BigDecimal probability = rule.probability();

@@ -5,6 +5,7 @@ import academy.cashbackmerge.util.Messages;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import lombok.Getter;
 
 public final class Board {
@@ -32,7 +33,7 @@ public final class Board {
                 if (board[i][j] == null) {
                     cellValue = ".";
                 } else {
-                    cellValue = board[i][j] + "%";
+                    cellValue = board[i][j].toString();
                 }
                 boardBuilder.append(String.format("%-4s", cellValue));
             }
@@ -42,6 +43,7 @@ public final class Board {
     }
 
     public Board withTile(Position position, Cashback cashback) {
+        Objects.requireNonNull(cashback);
         checkOutOfBounds(position);
         Board newBoard = new Board(size);
         copyCells(newBoard);

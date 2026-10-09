@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public final class ConfigValidator {
-    private static final int MAX_SCALE = 3;
+    private static final int MAX_SCALE = SpawnRule.MAX_SCALE;
 
     private ConfigValidator() {}
 
@@ -25,24 +25,21 @@ public final class ConfigValidator {
     }
 
     private static void validateBoardSize(int boardSize) {
-        if (boardSize <= 1) {
-            throw new IllegalConfigException(Messages.getString("board_size.error.min_value"));
-        }
+        assertGreaterThan(boardSize, 1, Messages.getString("board_size.error.min_value"));
     }
 
     private static void validateMovesLimit(int movesLimit) {
-        if (movesLimit <= 0) {
-            throw new IllegalConfigException(Messages.getString("moves_limit.error.min_value"));
-        }
+        assertGreaterThan(movesLimit, 0, Messages.getString("moves_limit.error.min_value"));
     }
 
     private static void validateSpawnRules(List<SpawnRule> spawnRules) {
-        if (spawnRules == null || spawnRules.isEmpty()) {
-            throw new IllegalConfigException(Messages.getString("spawn_rules.error.empty"));
-        }
+        assertNotNull(spawnRules, Messages.getString("spawn_rules.error.empty"));
+        assertListNotEmpty(spawnRules, Messages.getString("spawn_rules.error.empty"));
+
         BigDecimal sumOfProbabilities = BigDecimal.ZERO;
         Set<Cashback> cashbacks = new HashSet<>();
         for (SpawnRule rule : spawnRules) {
+            assertNotNull(rule.cashback(), Messages.getString("cashback.error.null"));
             validateProbability(rule.probability());
             if (cashbacks.contains(rule.cashback())) {
                 throw new IllegalConfigException(Messages.getString("spawn_rules.cashback.error.already_exists"));
@@ -56,11 +53,11 @@ public final class ConfigValidator {
     }
 
     private static void validateRewardTable(List<Reward> rewardTable) {
-        if (rewardTable == null || rewardTable.isEmpty()) {
-            throw new IllegalConfigException(Messages.getString("reward_table.error.empty"));
-        }
+        assertNotNull(rewardTable, Messages.getString("reward_table.error.empty"));
+        assertListNotEmpty(rewardTable, Messages.getString("reward_table.error.empty"));
         Set<Cashback> cashbacks = new HashSet<>();
         for (Reward reward : rewardTable) {
+            assertNotNull(reward.cashback(), Messages.getString("cashback.error.null"));
             if (reward.reward() < 0) {
                 throw new IllegalConfigException(Messages.getString("reward_table.error.min_value"));
             }
@@ -72,23 +69,45 @@ public final class ConfigValidator {
     }
 
     private static void validateMaxRewardAllowedRate(BigDecimal maxRewardAllowedRate) {
-        if (maxRewardAllowedRate == null) {
-            throw new IllegalConfigException(Messages.getString("max_reward_allowed_rate.error.null"));
-        }
-        if (maxRewardAllowedRate.signum() < 0) {
-            throw new IllegalConfigException(Messages.getString("max_reward_allowed_rate.error.min_value"));
-        }
+        assertNotNull(maxRewardAllowedRate, Messages.getString("max_reward_allowed_rate.error.null"));
+        assertBigDecimalPositive(maxRewardAllowedRate, Messages.getString("max_reward_allowed_rate.error.min_value"));
+        assertBigDecimalScale(
+                maxRewardAllowedRate, MAX_SCALE, Messages.getString("max_reward_allowed_rate.error.max_scale"));
     }
 
     private static void validateProbability(BigDecimal probability) {
-        if (probability == null) {
-            throw new IllegalConfigException(Messages.getString("probability.error.null"));
+        assertNotNull(probability, Messages.getString("probability.error.null"));
+        assertBigDecimalPositive(probability, Messages.getString("probability.error.min_value"));
+        assertBigDecimalScale(probability, MAX_SCALE, Messages.getString("probability.error.max_scale"));
+    }
+
+    private static void assertGreaterThan(int valueToCheck, int limit, String message) {
+        if (valueToCheck <= limit) {
+            throw new IllegalConfigException(message);
         }
-        if (probability.signum() <= 0) {
-            throw new IllegalConfigException(Messages.getString("probability.error.min_value"));
+    }
+
+    private static void assertNotNull(Object o, String message) {
+        if (o == null) {
+            throw new IllegalConfigException(message);
         }
-        if (probability.scale() >= MAX_SCALE) {
-            throw new IllegalConfigException(Messages.getString("probability.error.max_scale"));
+    }
+
+    private static void assertListNotEmpty(List<?> list, String message) {
+        if (list.isEmpty()) {
+            throw new IllegalConfigException(message);
+        }
+    }
+
+    private static void assertBigDecimalPositive(BigDecimal value, String message) {
+        if (value.signum() <= 0) {
+            throw new IllegalConfigException(message);
+        }
+    }
+
+    private static void assertBigDecimalScale(BigDecimal value, int scale, String message) {
+        if (value.stripTrailingZeros().scale() > scale) {
+            throw new IllegalConfigException(message);
         }
     }
 }

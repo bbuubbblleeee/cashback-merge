@@ -27,9 +27,9 @@ public final class ConfigLoader {
             ConfigValidator.validate(config);
             return config;
         } catch (FileNotFoundException e) {
-            throw new IllegalConfigException(Messages.getString("config.error.not_found"));
+            throw new IllegalConfigException(Messages.getString("config.error.not_found"), e);
         } catch (JacksonException e) {
-            throw new IllegalConfigException(Messages.getString("config.error"), e);
+            throw new IllegalConfigException(buildJacksonErrorMessage(e), e);
         } catch (IOException e) {
             throw new IllegalConfigException(Messages.getString("config.error.io_exception"), e);
         }
@@ -41,7 +41,16 @@ public final class ConfigLoader {
             ConfigValidator.validate(config);
             return config;
         } catch (JacksonException e) {
-            throw new IllegalConfigException(Messages.getString("config.error"), e);
+            throw new IllegalConfigException(buildJacksonErrorMessage(e), e);
         }
+    }
+
+    private static String buildJacksonErrorMessage(JacksonException e) {
+        Throwable cause = e.getCause();
+        String message = Messages.getString("config.error");
+        if (cause != null) {
+            message += ": " + cause.getMessage();
+        }
+        return message;
     }
 }
