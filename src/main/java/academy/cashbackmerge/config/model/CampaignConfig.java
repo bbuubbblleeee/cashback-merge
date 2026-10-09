@@ -16,5 +16,4 @@ public record CampaignConfig(
         List<SpawnRule> spawnRules,
         List<Reward> rewardTable,
         Cashback maxRewardCashback,
-        BigDecimal maxRewardAllowedRate
-) {}
+        BigDecimal maxRewardAllowedRate) {}
