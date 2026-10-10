@@ -1,4 +1,4 @@
-package academy.cashbackmerge.config.model;
+package academy.cashbackmerge.config;
 
 import academy.cashbackmerge.model.Cashback;
 import academy.cashbackmerge.model.Reward;

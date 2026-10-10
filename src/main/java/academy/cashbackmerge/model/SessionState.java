@@ -1,4 +1,4 @@
-package academy.cashbackmerge.game.model;
+package academy.cashbackmerge.model;
 
 import academy.cashbackmerge.util.Messages;
 

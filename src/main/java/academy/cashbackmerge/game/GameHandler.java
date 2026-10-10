@@ -1,9 +1,9 @@
 package academy.cashbackmerge.game;
 
-import academy.cashbackmerge.config.model.CampaignConfig;
+import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.game.model.GameSession;
-import academy.cashbackmerge.game.model.SessionState;
-import academy.cashbackmerge.game.model.board.Board;
+import academy.cashbackmerge.model.SessionState;
+import academy.cashbackmerge.model.board.Board;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

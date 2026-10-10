@@ -1,6 +1,6 @@
 package academy.cashbackmerge.support;
 
-import academy.cashbackmerge.config.model.CampaignConfig;
+import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.model.Cashback;
 import academy.cashbackmerge.model.Reward;
 import academy.cashbackmerge.model.SpawnRule;

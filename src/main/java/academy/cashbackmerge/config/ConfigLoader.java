@@ -1,7 +1,5 @@
 package academy.cashbackmerge.config;
 
-import academy.cashbackmerge.config.model.CampaignConfig;
-import academy.cashbackmerge.config.validator.ConfigValidator;
 import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.util.Messages;
 import com.fasterxml.jackson.core.JacksonException;

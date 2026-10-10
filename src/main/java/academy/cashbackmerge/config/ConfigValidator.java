@@ -1,6 +1,5 @@
-package academy.cashbackmerge.config.validator;
+package academy.cashbackmerge.config;
 
-import academy.cashbackmerge.config.model.CampaignConfig;
 import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.model.Cashback;
 import academy.cashbackmerge.model.Reward;

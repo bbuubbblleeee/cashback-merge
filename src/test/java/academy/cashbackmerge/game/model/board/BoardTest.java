@@ -3,6 +3,7 @@ package academy.cashbackmerge.game.model.board;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import academy.cashbackmerge.model.Cashback;
+import academy.cashbackmerge.model.board.Board;
 import academy.cashbackmerge.util.Messages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

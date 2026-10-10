@@ -3,7 +3,7 @@ package academy.cashbackmerge.mandatory.mr1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import academy.cashbackmerge.config.model.CampaignConfig;
+import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.game.GameHandler;
 import academy.cashbackmerge.game.model.GameSession;
 import academy.cashbackmerge.support.TestConfig;

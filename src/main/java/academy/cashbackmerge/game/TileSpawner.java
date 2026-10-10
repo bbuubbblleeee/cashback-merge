@@ -1,8 +1,8 @@
 package academy.cashbackmerge.game;
 
-import academy.cashbackmerge.game.model.board.Board;
 import academy.cashbackmerge.game.model.board.Position;
 import academy.cashbackmerge.model.SpawnRule;
+import academy.cashbackmerge.model.board.Board;
 import academy.cashbackmerge.util.Messages;
 import java.math.BigDecimal;
 import java.util.List;

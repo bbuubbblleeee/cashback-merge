@@ -3,9 +3,9 @@ package academy.cashbackmerge.game.model;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import academy.cashbackmerge.game.TileSpawner;
-import academy.cashbackmerge.game.model.board.Board;
 import academy.cashbackmerge.model.Cashback;
 import academy.cashbackmerge.model.SpawnRule;
+import academy.cashbackmerge.model.board.Board;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
