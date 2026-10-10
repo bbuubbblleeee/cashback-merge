@@ -44,6 +44,8 @@ tasks.named<JavaExec>("run") {
 
 dependencies {
     implementation(libs.picocli)
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 
     implementation(platform(libs.jackson.bom))
     implementation(libs.bundles.jackson)
