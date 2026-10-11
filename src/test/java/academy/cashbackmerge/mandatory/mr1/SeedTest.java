@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.game.GameHandler;
-import academy.cashbackmerge.game.model.GameSession;
+import academy.cashbackmerge.model.GameSession;
 import academy.cashbackmerge.support.TestConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;

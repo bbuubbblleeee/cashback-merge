@@ -1,6 +1,5 @@
 package academy.cashbackmerge.model.board;
 
-import academy.cashbackmerge.game.model.board.Position;
 import academy.cashbackmerge.model.Cashback;
 import academy.cashbackmerge.util.Messages;
 import java.util.ArrayList;

@@ -1,3 +1,3 @@
-package academy.cashbackmerge.game.model.board;
+package academy.cashbackmerge.model.board;
 
 public record Position(int row, int col) {}
