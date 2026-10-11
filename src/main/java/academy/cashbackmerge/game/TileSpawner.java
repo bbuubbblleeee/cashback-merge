@@ -21,14 +21,13 @@ public class TileSpawner {
         this.random = new Random(seed);
     }
 
-    public Board spawnStartTiles(Board board) {
+    public void spawnStartTiles(Board board) {
         for (int i = 0; i < 2; i++) {
-            board = spawnTile(board);
+            spawnTile(board);
         }
-        return board;
     }
 
-    public Board spawnTile(Board board) {
+    public void spawnTile(Board board) {
         List<Position> freeTiles = board.getFreeCells();
         if (freeTiles.isEmpty()) {
             throw new IllegalArgumentException(Messages.getString("board.error.full_board"));
@@ -41,7 +40,8 @@ public class TileSpawner {
             BigDecimal probability = rule.probability();
             probabilitySum = probabilitySum.add(probability);
             if (target.compareTo(probabilitySum) < 0) {
-                return board.withTile(position, rule.cashback());
+                board.setTileCashback(position, rule.cashback());
+                return;
             }
         }
         throw new IllegalArgumentException(Messages.getString("tile_spawner.error.spawn_rule_not_found"));

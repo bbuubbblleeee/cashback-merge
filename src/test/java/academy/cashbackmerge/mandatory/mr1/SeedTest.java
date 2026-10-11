@@ -26,7 +26,7 @@ class SeedTest {
         GameSession session1 = gameHandler.startGame(seed);
         GameSession session2 = gameHandler.startGame(seed);
 
-        assertThat(session1.board().equals(session2.board())).isTrue();
+        assertThat(session1.getBoard().equals(session2.getBoard())).isTrue();
     }
 
     @Test
