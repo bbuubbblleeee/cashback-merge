@@ -22,6 +22,19 @@ public final class Board {
         this.board = new Cashback[boardSize][boardSize];
     }
 
+    public Board(Cashback[][] board) {
+        if (board.length == 0) {
+            throw new IllegalArgumentException(Messages.getString("board_size.error.min_value"));
+        }
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] == null || board[i].length != board.length) {
+                throw new IllegalArgumentException(Messages.getString("board_size.error.square"));
+            }
+        }
+        this.size = board.length;
+        this.board = board;
+    }
+
     public String getBoardString() {
         StringBuilder boardBuilder = new StringBuilder();
         for (int i = 0; i < size; i++) {
@@ -99,6 +112,16 @@ public final class Board {
         }
 
         return result;
+    }
+
+    public Board copy() {
+        Cashback[][] copyCashback = new Cashback[size][size];
+        for (int i = 0; i < size; i++) {
+            if (this.board[i] != null) {
+                copyCashback[i] = Arrays.copyOf(this.board[i], size);
+            }
+        }
+        return new Board(copyCashback);
     }
 
     @Override

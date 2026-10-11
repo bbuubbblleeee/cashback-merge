@@ -7,101 +7,94 @@ import academy.cashbackmerge.model.board.Board;
 import academy.cashbackmerge.model.board.Position;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 public final class MoveService {
-    public static final Map<Move, Function<Board, MoveResult>> MOVES;
 
     private MoveService() {}
 
-    static {
-        MOVES = Map.of(
-                Move.LEFT,
-                MoveService::leftMove,
-                Move.RIGHT,
-                MoveService::rightMove,
-                Move.UP,
-                MoveService::upMove,
-                Move.DOWN,
-                MoveService::downMove);
+    public static MoveResult move(Board board, Move move) {
+        return switch (move) {
+            case LEFT -> leftMove(board.copy(), b -> b);
+            case RIGHT -> leftMove(board.reverseRows(), Board::reverseRows);
+            case UP -> leftMove(board.transpose(), Board::transpose);
+            case DOWN ->
+                leftMove(board.transpose().reverseRows(), b -> b.reverseRows().transpose());
+        };
     }
 
-    private static MoveResult leftMove(Board board) {
+    private static MoveResult leftMove(Board board, Function<Board, Board> restoreOrientation) {
         boolean boardChanged = false;
-        int size = board.getSize();
+        int score = 0;
 
-        for (int i = 0; i < size; i++) {
-            List<Cashback> tiles = new ArrayList<>();
-            for (int j = 0; j < size; j++) {
-                Cashback tile = board.getTileCashback(new Position(i, j));
-                if (tile != null) {
-                    tiles.add(tile);
+        for (int row = 0; row < board.getSize(); row++) {
+            MergedRow merged = mergeRow(readRow(board, row));
+            boardChanged |= writeRow(board, row, merged.tiles());
+            score += merged.score();
+        }
+
+        return new MoveResult(boardChanged, restoreOrientation.apply(board), score);
+    }
+
+    private static List<Cashback> readRow(Board board, int row) {
+        List<Cashback> tiles = new ArrayList<>();
+        for (int col = 0; col < board.getSize(); col++) {
+            Cashback tile = board.getTileCashback(new Position(row, col));
+            if (tile != null) {
+                tiles.add(tile);
+            }
+        }
+        return tiles;
+    }
+
+    private static boolean writeRow(Board board, int row, List<Cashback> tiles) {
+        boolean rowChanged = false;
+        for (int col = 0; col < board.getSize(); col++) {
+            Position position = new Position(row, col);
+            Cashback oldTile = board.getTileCashback(position);
+            Cashback newTile = col < tiles.size() ? tiles.get(col) : null;
+
+            if (newTile == null) {
+                if (oldTile != null) {
+                    board.removeTile(position);
+                    rowChanged = true;
                 }
-            }
-            List<Cashback> merged = mergeCashback(tiles);
-
-            for (int j = 0; j < size; j++) {
-                Position position = new Position(i, j);
-                boardChanged |= applyBoardChanges(merged, j, position, board);
-            }
-        }
-
-        return new MoveResult(boardChanged, board);
-    }
-
-    private static MoveResult rightMove(Board board) {
-        board = board.reverseRows();
-        MoveResult moveResult = leftMove(board);
-        return new MoveResult(moveResult.isBoardChanged(), board.reverseRows());
-    }
-
-    private static MoveResult upMove(Board board) {
-        board = board.transpose();
-        MoveResult moveResult = leftMove(board);
-        return new MoveResult(moveResult.isBoardChanged(), board.transpose());
-    }
-
-    private static MoveResult downMove(Board board) {
-        board = board.transpose().reverseRows();
-        MoveResult moveResult = leftMove(board);
-        return new MoveResult(moveResult.isBoardChanged(), board.reverseRows().transpose());
-    }
-
-    private static boolean applyBoardChanges(List<Cashback> merged, int j, Position position, Board board) {
-        boolean boardChanged = false;
-        Cashback newTile = j < merged.size() ? merged.get(j) : null;
-        Cashback oldTile = board.getTileCashback(position);
-
-        if (newTile == null) {
-            if (oldTile != null) {
-                boardChanged = true;
-                board.removeTile(position);
-            }
-        } else {
-            if (!newTile.equals(oldTile)) {
-                boardChanged = true;
+            } else if (!newTile.equals(oldTile)) {
                 board.setTileCashback(position, newTile);
+                rowChanged = true;
             }
         }
-        return boardChanged;
+        return rowChanged;
     }
 
-    private static List<Cashback> mergeCashback(List<Cashback> tiles) {
+    private static MergedRow mergeRow(List<Cashback> tiles) {
         List<Cashback> merged = new ArrayList<>();
-        int j = 0;
+        int score = 0;
+        int i = 0;
 
-        while (j < tiles.size()) {
-            Cashback current = tiles.get(j);
-
-            if (j + 1 < tiles.size() && current.equals(tiles.get(j + 1))) {
-                merged.add(new Cashback(current.cashback() * 2));
-                j += 2;
+        while (i < tiles.size()) {
+            Cashback current = tiles.get(i);
+            if (i + 1 < tiles.size() && current.equals(tiles.get(i + 1))) {
+                Cashback mergedTile = new Cashback(current.cashback() * 2);
+                merged.add(mergedTile);
+                score += mergedTile.cashback();
+                i += 2;
             } else {
                 merged.add(current);
-                j++;
+                i++;
             }
         }
-        return merged;
+        return new MergedRow(merged, score);
     }
+
+    public static boolean hasAvailableMoves(Board board) {
+        for (Move move : Move.values()) {
+            if (move(board, move).boardChanged()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private record MergedRow(List<Cashback> tiles, int score) {}
 }

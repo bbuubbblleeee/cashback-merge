@@ -13,6 +13,6 @@ public class GameHandler {
         Board board = new Board(config.boardSize());
         TileSpawner tileSpawner = new TileSpawner(config.spawnRules(), seed);
         tileSpawner.spawnStartTiles(board);
-        return new GameSession(board, config.movesLimit());
+        return new GameSession(board, tileSpawner, config.movesLimit());
     }
 }

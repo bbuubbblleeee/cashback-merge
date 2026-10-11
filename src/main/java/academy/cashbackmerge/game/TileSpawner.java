@@ -14,7 +14,7 @@ public class TileSpawner {
     private static final int PROBABILITY_SCALE_BASE = 10;
 
     public TileSpawner(List<SpawnRule> spawnRules, long seed) {
-        if (spawnRules == null) {
+        if (spawnRules == null || spawnRules.isEmpty()) {
             throw new IllegalArgumentException(Messages.getString("spawn_rules.error.empty"));
         }
         this.spawnRules = spawnRules;
@@ -30,7 +30,7 @@ public class TileSpawner {
     public void spawnTile(Board board) {
         List<Position> freeTiles = board.getFreeCells();
         if (freeTiles.isEmpty()) {
-            throw new IllegalArgumentException(Messages.getString("board.error.full_board"));
+            throw new IllegalStateException(Messages.getString("board.error.full_board"));
         }
         Position position = freeTiles.get(random.nextInt(freeTiles.size()));
         int randomInt = random.nextInt(Math.powExact(PROBABILITY_SCALE_BASE, SpawnRule.MAX_SCALE));
@@ -44,6 +44,6 @@ public class TileSpawner {
                 return;
             }
         }
-        throw new IllegalArgumentException(Messages.getString("tile_spawner.error.spawn_rule_not_found"));
+        throw new IllegalStateException(Messages.getString("tile_spawner.error.spawn_rule_not_found"));
     }
 }

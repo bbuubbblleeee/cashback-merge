@@ -1,6 +1,6 @@
 package academy.cashbackmerge.model;
 
-public enum GameStatus {
+public enum SessionStatus {
     IN_PROGRESS,
     FINISHED,
 }
