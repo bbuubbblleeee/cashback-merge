@@ -1,8 +1,9 @@
-package academy.cashbackmerge.model;
+package academy.cashbackmerge.game;
 
 import academy.cashbackmerge.exception.InvalidMoveException;
-import academy.cashbackmerge.game.MoveService;
-import academy.cashbackmerge.game.TileSpawner;
+import academy.cashbackmerge.model.Move;
+import academy.cashbackmerge.model.MoveResult;
+import academy.cashbackmerge.model.SessionStatus;
 import academy.cashbackmerge.model.board.Board;
 import academy.cashbackmerge.util.Messages;
 import lombok.Getter;

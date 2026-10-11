@@ -7,9 +7,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import academy.cashbackmerge.exception.InvalidMoveException;
+import academy.cashbackmerge.game.GameSession;
 import academy.cashbackmerge.game.TileSpawner;
 import academy.cashbackmerge.model.Cashback;
-import academy.cashbackmerge.model.GameSession;
 import academy.cashbackmerge.model.Move;
 import academy.cashbackmerge.model.SessionStatus;
 import academy.cashbackmerge.model.SpawnRule;

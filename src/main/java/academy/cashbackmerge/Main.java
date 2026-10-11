@@ -4,7 +4,7 @@ import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.config.ConfigLoader;
 import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.game.GameHandler;
-import academy.cashbackmerge.model.GameSession;
+import academy.cashbackmerge.game.GameSession;
 import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

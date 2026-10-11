@@ -5,8 +5,6 @@ import academy.cashbackmerge.model.board.Board;
 import academy.cashbackmerge.util.Messages;
 
 public final class BoardParsing {
-    private BoardParsing() {}
-
     public static Cashback[] parseCashback(String cashbacksString, int size) {
         String[] values = cashbacksString.trim().split(",");
         if (values.length != size) {
