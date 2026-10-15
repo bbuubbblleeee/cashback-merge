@@ -8,12 +8,17 @@ import academy.cashbackmerge.model.board.Board;
 import academy.cashbackmerge.util.Messages;
 import lombok.Getter;
 
-@Getter
 public class GameSession {
     private Board board;
-    private TileSpawner tileSpawner;
+    private final TileSpawner tileSpawner;
+
+    @Getter
     private int movesLeft;
+
+    @Getter
     private int score;
+
+    @Getter
     private SessionStatus sessionStatus;
 
     public GameSession(Board board, TileSpawner tileSpawner, int movesLeft) {
@@ -46,5 +51,9 @@ public class GameSession {
         tileSpawner.spawnTile(board);
         completeMove(result.score());
         return result;
+    }
+
+    public Board getBoard() {
+        return board.copy();
     }
 }

@@ -26,8 +26,8 @@ public final class Board {
         if (board.length == 0) {
             throw new IllegalArgumentException(Messages.getString("board_size.error.min_value"));
         }
-        for (int i = 0; i < board.length; i++) {
-            if (board[i] == null || board[i].length != board.length) {
+        for (Cashback[] cashback : board) {
+            if (cashback == null || cashback.length != board.length) {
                 throw new IllegalArgumentException(Messages.getString("board_size.error.square"));
             }
         }
@@ -69,7 +69,7 @@ public final class Board {
         checkOutOfBounds(position);
         int row = position.row();
         int col = position.col();
-        return board[row][col] == null ? null : board[row][col];
+        return board[row][col];
     }
 
     private void checkOutOfBounds(Position position) {
