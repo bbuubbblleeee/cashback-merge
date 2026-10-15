@@ -4,7 +4,7 @@ import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.config.ConfigLoader;
 import academy.cashbackmerge.exception.IllegalConfigException;
 import academy.cashbackmerge.game.GameHandler;
-import academy.cashbackmerge.game.model.GameSession;
+import academy.cashbackmerge.game.GameSession;
 import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,8 @@ public final class Main {
             CampaignConfig config = ConfigLoader.loadConfigFromJsonFile(Path.of("config", "campaign.example.json"));
             GameHandler gameHandler = new GameHandler(config);
             GameSession session = gameHandler.startGame(SEED);
-            System.out.println(session.board().getBoardString());
+            System.out.println(session.getBoard().getBoardString());
+
         } catch (IllegalArgumentException | IllegalConfigException e) {
             System.err.println(e.getMessage());
             System.exit(1);

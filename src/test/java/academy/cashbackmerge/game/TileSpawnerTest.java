@@ -1,8 +1,7 @@
-package academy.cashbackmerge.game.model;
+package academy.cashbackmerge.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import academy.cashbackmerge.game.TileSpawner;
 import academy.cashbackmerge.model.Cashback;
 import academy.cashbackmerge.model.SpawnRule;
 import academy.cashbackmerge.model.board.Board;
@@ -19,7 +18,7 @@ public class TileSpawnerTest {
         Board board = new Board(4);
         List<SpawnRule> spawnRules = List.of(new SpawnRule(new Cashback(1), new BigDecimal("1")));
         TileSpawner tileSpawner = new TileSpawner(spawnRules, 1);
-        board = tileSpawner.spawnTile(board);
+        tileSpawner.spawnTile(board);
         assertThat(board.getFreeCells().size()).isEqualTo(board.getSize() * board.getSize() - 1);
     }
 
@@ -29,7 +28,7 @@ public class TileSpawnerTest {
         Board board = new Board(4);
         List<SpawnRule> spawnRules = List.of(new SpawnRule(new Cashback(1), new BigDecimal("1")));
         TileSpawner tileSpawner = new TileSpawner(spawnRules, 1);
-        board = tileSpawner.spawnStartTiles(board);
+        tileSpawner.spawnStartTiles(board);
         assertThat(board.getFreeCells().size()).isEqualTo(board.getSize() * board.getSize() - 2);
     }
 }

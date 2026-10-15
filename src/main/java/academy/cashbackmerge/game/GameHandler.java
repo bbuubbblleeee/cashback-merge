@@ -1,8 +1,6 @@
 package academy.cashbackmerge.game;
 
 import academy.cashbackmerge.config.CampaignConfig;
-import academy.cashbackmerge.game.model.GameSession;
-import academy.cashbackmerge.model.SessionState;
 import academy.cashbackmerge.model.board.Board;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +11,7 @@ public class GameHandler {
     public GameSession startGame(long seed) {
         Board board = new Board(config.boardSize());
         TileSpawner tileSpawner = new TileSpawner(config.spawnRules(), seed);
-        board = tileSpawner.spawnStartTiles(board);
-        return new GameSession(board, new SessionState(config.movesLimit()));
+        tileSpawner.spawnStartTiles(board);
+        return new GameSession(board, tileSpawner, config.movesLimit());
     }
 }

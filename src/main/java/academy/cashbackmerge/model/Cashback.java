@@ -28,4 +28,20 @@ public record Cashback(int cashback) {
             throw new IllegalCashbackException(Messages.getString("cashback.error.power_of_two"));
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof Cashback(int cashbackValue)) {
+            return this.cashback == cashbackValue;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(this.cashback);
+    }
 }

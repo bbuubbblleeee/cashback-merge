@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import academy.cashbackmerge.config.CampaignConfig;
 import academy.cashbackmerge.game.GameHandler;
-import academy.cashbackmerge.game.model.GameSession;
+import academy.cashbackmerge.game.GameSession;
 import academy.cashbackmerge.support.TestConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +26,7 @@ class SeedTest {
         GameSession session1 = gameHandler.startGame(seed);
         GameSession session2 = gameHandler.startGame(seed);
 
-        assertThat(session1.board().equals(session2.board())).isTrue();
+        assertThat(session1.getBoard().equals(session2.getBoard())).isTrue();
     }
 
     @Test

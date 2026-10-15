@@ -62,9 +62,8 @@ dependencies {
     testImplementation(libs.bundles.testing)
     testRuntimeOnly(libs.junit.platform.launcher)
 
-    // Раскомментируй, если понадобится:
-    // testImplementation(platform(libs.mockito.bom))     // моки
-    // testImplementation(libs.bundles.mockito)
+    testImplementation(platform(libs.mockito.bom))
+    testImplementation(libs.bundles.mockito)
 }
 
 // Проверки Error Prone. Список повторяет соглашения внутренних Gradle-плагинов банка.
