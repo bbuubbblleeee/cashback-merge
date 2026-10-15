@@ -50,7 +50,7 @@ public class GameSession {
         this.board = result.board();
         tileSpawner.spawnTile(board);
         completeMove(result.score());
-        return new MoveResult(true, board.copy(), score);
+        return new MoveResult(true, board.copy(), result.score());
     }
 
     public Board getBoard() {
